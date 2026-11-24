@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: alliances
+    runtime: node
+    plan: starter
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /
+    envVars:
+      - key: ADMIN_CODE
+        sync: false
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase: { name: alliances-db, property: connectionString }
+databases:
+  - name: alliances-db
+    plan: basic-256mb
